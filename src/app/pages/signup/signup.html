@@ -1,0 +1,44 @@
+<div class="main-layout">
+  <h2>회원가입</h2>
+  <form (submit)="onSubmit($event)">
+    <div>
+      <label>
+        Email:
+        <input type="email" [field]="signupForm.email" />
+      </label>
+
+      @if (signupForm.email().touched() && signupForm.email().invalid()) {
+      <ul class="error-list">
+        @for(error of signupForm.email().errors(); track error) {
+        <li>{{ error.message }}</li>
+        }
+      </ul>
+      }
+    </div>
+    <div>
+      <label>
+        password:
+        <input type="password" [field]="signupForm.password" />
+      </label>
+      @if (signupForm.password().touched() && signupForm.password().invalid()) {
+      <ul class="error-list">
+        @for(error of signupForm.password().errors(); track error) {
+        <li>{{ error.message }}</li>
+        }
+      </ul>
+      }
+    </div>
+
+    <button
+      class="btn-primary"
+      type="submit"
+      [disabled]="signupForm().invalid()"
+      [class.btn-disabled]="signupForm().invalid()"
+    >
+      Sign Up
+    </button>
+    <div class="signUp">
+      <button class="btn-text" type="button" (click)="goLogin()">로그인 하러가기.</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,14 @@
+.footer {
+  height: 10vh;
+  background-color: #4b89dc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  color: white;
+  font-size: xx-large;
+  font-weight: 800;
+  text-align: center;
+}
