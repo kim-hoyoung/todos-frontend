@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { ApiClient } from './api-client';
 
 export interface AuthRequest {
   email: string;
@@ -15,20 +16,16 @@ export interface AuthResponse {
   providedIn: 'root',
 })
 export class Auth {
-  private readonly baseUrl = 'http://localhost:8080';
-
-  constructor(private http: HttpClient) {}
+  constructor(private api: ApiClient) {}
 
   signup(body: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/users/create`, body);
+    return this.api.post<AuthResponse>(`/users/create`, body);
   }
   login(body: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/users/login`, body).pipe(
+    return this.api.post<AuthResponse>(`/users/login`, body).pipe(
       catchError((err: HttpErrorResponse) => {
         let msg = '로그인에 실패했습니다.';
-        if (err.status === 401) {
-          msg = '이메일 또는 비밀번호가 올바르지 않습니다.';
-        } else if (err.status === 400) {
+        if (err.status === 401 || err.status === 400) {
           msg = '이메일 또는 비밀번호가 올바르지 않습니다.';
         } else if (err.status === 0) {
           msg = '서버에 연결할 수 없습니다.';
