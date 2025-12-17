@@ -1,22 +1,14 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { ApiClient } from './api-client';
-
-export interface AuthRequest {
-  email: string;
-  password: string;
-}
-export interface AuthResponse {
-  message: string;
-  token: string;
-}
+import { HttpService } from './httpService';
+import { AuthRequest, AuthResponse } from '../../models/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
-  constructor(private api: ApiClient) {}
+  constructor(private api: HttpService) {}
 
   signup(body: AuthRequest): Observable<AuthResponse> {
     return this.api.post<AuthResponse>(`/users/create`, body);

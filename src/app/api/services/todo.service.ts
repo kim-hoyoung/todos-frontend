@@ -1,14 +1,14 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiResponse, GetTodosQuery, Todo, TodoUpsertPayload } from '../models/todo';
+import { ApiResponse, GetTodosQuery, Todo, TodoUpsertPayload } from '../../models/todo';
 import { Observable } from 'rxjs';
-import { ApiClient } from './api-client';
+import { HttpService } from './httpService';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  constructor(private api: ApiClient) {}
+  constructor(private api: HttpService) {}
 
   getTodos(query?: GetTodosQuery): Observable<ApiResponse<Todo[]>> {
     let params = new HttpParams();

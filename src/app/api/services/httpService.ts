@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class ApiClient {
+export class HttpService {
   private readonly baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
@@ -11,7 +11,6 @@ export class ApiClient {
   get<T>(path: string, options?: { params?: HttpParams }): Observable<T> {
     return this.http.get<T>(`${this.baseUrl}${path}`, options);
   }
-
   post<T>(path: string, body: unknown): Observable<T> {
     return this.http.post<T>(`${this.baseUrl}${path}`, body);
   }

@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { email, Field, form, minLength, pattern, required } from '@angular/forms/signals';
 import { Router } from '@angular/router';
-import { Auth } from '../../api/auth';
+import { Auth } from '../../api/services/auth.service';
 import { firstValueFrom } from 'rxjs';
 
 interface LoginData {
