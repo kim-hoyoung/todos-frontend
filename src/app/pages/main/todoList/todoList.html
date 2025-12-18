@@ -1,5 +1,4 @@
 <div class="layout">
-  <div class="side"></div>
   <div class="todo-list">
     <div class="todo-input-wrapper">
       <input class="todo-input" type="text" placeholder="할 일 추가" [(ngModel)]="newText" />
@@ -10,5 +9,18 @@
       <app-todo-contents></app-todo-contents>
     </div>
   </div>
-  <div class="side"></div>
+
+  <div class="todo-details-wrapper">
+    <div class="todo-title-wrapper" *ngIf="todoStore.selectedTodo() as todo">
+      <div class="todo-title">{{ todo.title }}</div>
+      <div class="todo-edit-btn">
+        <button class="update-btn" type="button">수정하기</button>
+        <button class="delete-btn" type="button">삭제하기</button>
+      </div>
+    </div>
+
+    <div class="todo-details">
+      <app-todo-details></app-todo-details>
+    </div>
+  </div>
 </div>
