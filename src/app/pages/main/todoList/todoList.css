@@ -8,11 +8,10 @@
 }
 
 .todo-details-wrapper {
-  height: 100%;
   background-color: white;
   border-radius: 10px;
   min-width: 1000px;
-  height: 75vh;
+  min-height: 75vh;
   flex: 0 0 auto;
   width: 10%;
 }
@@ -21,12 +20,13 @@
   background-color: white;
   border-radius: 10px;
   min-width: 700px;
-  height: 75vh;
+  min-height: 75vh;
   flex: 0 0 auto;
 }
 
 .todo-content {
   width: 100%;
+  height: 80%;
 }
 
 .todo-content--empty {

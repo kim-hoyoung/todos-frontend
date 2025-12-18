@@ -2,43 +2,47 @@
   <div class="non-completed-item">
     <!-- 미완료 -->
     <div class="title">미완료</div>
-    <div
-      class="todo-item"
-      *ngFor="let todo of todoStore.activeTodosByDate()"
-      (click)="todoStore.selectTodo(todo)"
-    >
-      <label class="todo-check">
-        <input
-          type="checkbox"
-          [checked]="todo.isCompleted"
-          (change)="todoStore.toggleTodo(todo.id)"
-        />
-        <span class="todo-check__box"></span>
-      </label>
-      <span class="todo-title-text" [class.selected]="todoStore.selectedTodo()?.id === todo.id">
-        {{ todo.title }}
-      </span>
+    <div class="todo-scroll">
+      <div
+        class="todo-item"
+        *ngFor="let todo of todoStore.activeTodosByDate()"
+        (click)="todoStore.selectTodo(todo)"
+      >
+        <label class="todo-check">
+          <input
+            type="checkbox"
+            [checked]="todo.isCompleted"
+            (change)="todoStore.toggleTodo(todo.id)"
+          />
+          <span class="todo-check__box"></span>
+        </label>
+        <span class="todo-title-text" [class.selected]="todoStore.selectedTodo()?.id === todo.id">
+          {{ todo.title }}
+        </span>
+      </div>
     </div>
   </div>
   <div class="completed-item">
     <!-- 완료 -->
     <div class="title">완료</div>
-    <div
-      class="todo-item"
-      *ngFor="let todo of todoStore.completedTodosByDate()"
-      (click)="todoStore.selectTodo(todo)"
-    >
-      <label class="todo-check">
-        <input
-          type="checkbox"
-          [checked]="todo.isCompleted"
-          (change)="todoStore.toggleTodo(todo.id)"
-        />
-        <span class="todo-check__box"></span>
-      </label>
-      <span class="todo-title-text" [class.selected]="todoStore.selectedTodo()?.id === todo.id">
-        {{ todo.title }}
-      </span>
+    <div class="todo-scroll">
+      <div
+        class="todo-item"
+        *ngFor="let todo of todoStore.completedTodosByDate()"
+        (click)="todoStore.selectTodo(todo)"
+      >
+        <label class="todo-check">
+          <input
+            type="checkbox"
+            [checked]="todo.isCompleted"
+            (change)="todoStore.toggleTodo(todo.id)"
+          />
+          <span class="todo-check__box"></span>
+        </label>
+        <span class="todo-title-text" [class.selected]="todoStore.selectedTodo()?.id === todo.id">
+          {{ todo.title }}
+        </span>
+      </div>
     </div>
   </div>
 </div>
