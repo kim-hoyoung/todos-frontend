@@ -12,3 +12,27 @@
   font-weight: 800;
   text-align: center;
 }
+
+.date-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.date {
+  font-size: 28px;
+  font-weight: 900;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.date-btn {
+  font-size: 32px;
+  font-weight: 1000;
+  cursor: pointer;
+}
+.hidden-date-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}

@@ -44,6 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: left;
+  max-width: 250px;
 
   width: 100%;
   gap: 20px;
@@ -58,7 +59,14 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 250px;
+  /* max-width: 250px; */
+  cursor: pointer;
+}
+.todo-title-text:hover {
+  font-weight: 900;
+}
+.todo-title-text.selected {
+  font-weight: 900;
 }
 
 .non-completed-item,

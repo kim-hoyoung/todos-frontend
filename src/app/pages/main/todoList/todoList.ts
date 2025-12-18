@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { TodoStore } from '../../../store/todo.store';
 import { TodoDetails } from './todo-details/todo-details';
 import { CommonModule } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-todo-List',
@@ -60,7 +59,7 @@ export class TodoList {
     const todo = this.todoStore.selectedTodo();
     if (!todo) return;
 
-    this.todoStore.deleteTodo();
+    this.todoStore.deleteTodo(todo.id);
     this.todoStore.selectedTodo.set(null);
   }
 }

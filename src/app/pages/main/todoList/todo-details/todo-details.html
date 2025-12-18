@@ -7,7 +7,9 @@
       </li>
       <li>
         <span class="label">수정일자</span>
-        <span class="value">{{ todo.updatedAt | date : 'yyyy-MM-dd' }}</span>
+        <span class="value">{{
+          todo.updatedAt ? (todo.updatedAt | date : 'yyyy-MM-dd') : '-'
+        }}</span>
       </li>
       <li>
         <span class="label">완료일자</span>

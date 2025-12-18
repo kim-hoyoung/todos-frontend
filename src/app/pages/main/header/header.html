@@ -1,3 +1,28 @@
-<div class="header">
-  <h1 class="title">Todo List</h1>
+<div>
+  <header class="header">
+    <h1 class="title">Todo List</h1>
+  </header>
+  <div>
+    <!-- <div>
+      <input placeholder="찾고 싶은 일정을 검색해 주세요" />
+      <li>
+        <select>
+          <option value="">제목</option>
+          <option value="">내용</option>
+          <option value=""></option>
+        </select>
+      </li>
+    </div> -->
+    <div class="date-wrapper">
+      <button class="date-btn" type="button" (click)="prevDay()"><</button>
+
+      <div class="date" (click)="openDatePicker()">
+        {{ todoStore.selectedDate() | date : 'yyyy-MM-dd' }}
+      </div>
+
+      <button class="date-btn" type="button" (click)="nextDay()">></button>
+
+      <input #dateInput type="date" class="hidden-date-input" (change)="onDateChange($event)" />
+    </div>
+  </div>
 </div>

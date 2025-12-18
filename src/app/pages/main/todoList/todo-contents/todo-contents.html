@@ -4,7 +4,7 @@
     <div class="title">미완료</div>
     <div
       class="todo-item"
-      *ngFor="let todo of todoStore.activeTodos()"
+      *ngFor="let todo of todoStore.activeTodosByDate()"
       (click)="todoStore.selectTodo(todo)"
     >
       <label class="todo-check">
@@ -15,7 +15,9 @@
         />
         <span class="todo-check__box"></span>
       </label>
-      <span class="todo-title-text">{{ todo.title }}</span>
+      <span class="todo-title-text" [class.selected]="todoStore.selectedTodo()?.id === todo.id">
+        {{ todo.title }}
+      </span>
     </div>
   </div>
   <div class="completed-item">
@@ -23,7 +25,7 @@
     <div class="title">완료</div>
     <div
       class="todo-item"
-      *ngFor="let todo of todoStore.completedTodos()"
+      *ngFor="let todo of todoStore.completedTodosByDate()"
       (click)="todoStore.selectTodo(todo)"
     >
       <label class="todo-check">
@@ -34,7 +36,9 @@
         />
         <span class="todo-check__box"></span>
       </label>
-      <span class="todo-title-text">{{ todo.title }}</span>
+      <span class="todo-title-text" [class.selected]="todoStore.selectedTodo()?.id === todo.id">
+        {{ todo.title }}
+      </span>
     </div>
   </div>
 </div>
