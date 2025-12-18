@@ -1,0 +1,50 @@
+.todo-check {
+  display: inline-flex;
+  align-items: center;
+}
+
+.todo-check input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.todo-check__box {
+  width: 20px;
+  height: 20px;
+  border: 1px solid darkgray;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.todo-check input:checked + .todo-check__box {
+  background-color: #4b89dc;
+  border-color: #4b89dc;
+}
+
+.todo-check input:checked + .todo-check__box::after {
+  content: '✓';
+  color: white;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.todo-item-wrapper {
+  width: 100%;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  width: 100%;
+  gap: 20px;
+  margin: 0 0 1.5rem 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #1111;
+}

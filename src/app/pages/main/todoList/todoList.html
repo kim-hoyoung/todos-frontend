@@ -1,0 +1,14 @@
+<div class="layout">
+  <div class="side"></div>
+  <div class="todo-list">
+    <div class="todo-input-wrapper">
+      <input class="todo-input" type="text" placeholder="할 일 추가" [(ngModel)]="newText" />
+      <button class="add-btn" type="button" (click)="add()">+</button>
+    </div>
+
+    <div class="todo-content">
+      <app-todo-contents></app-todo-contents>
+    </div>
+  </div>
+  <div class="side"></div>
+</div>

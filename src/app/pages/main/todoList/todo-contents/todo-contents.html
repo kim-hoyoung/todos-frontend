@@ -1,0 +1,13 @@
+<div class="todo-item-wrapper">
+  <div class="todo-item" *ngFor="let todo of todoStore.todoList()">
+    <label class="todo-check">
+      <input
+        type="checkbox"
+        [checked]="todo.isCompleted"
+        (change)="todoStore.toggleTodo(todo.id)"
+      />
+      <span class="todo-check__box"></span>
+    </label>
+    {{ todo.title }}
+  </div>
+</div>

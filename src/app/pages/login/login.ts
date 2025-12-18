@@ -3,11 +3,7 @@ import { email, Field, form, minLength, pattern, required } from '@angular/forms
 import { Router } from '@angular/router';
 import { Auth } from '../../api/services/auth.service';
 import { firstValueFrom } from 'rxjs';
-
-interface LoginData {
-  email: string;
-  password: string;
-}
+import { AuthRequest } from '../../models/auth';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +22,7 @@ export class Login {
     }
   }
 
-  loginModel = signal<LoginData>({
+  loginModel = signal<AuthRequest>({
     email: '',
     password: '',
   });

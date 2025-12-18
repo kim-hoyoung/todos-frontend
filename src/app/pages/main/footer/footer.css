@@ -1,14 +1,30 @@
+button {
+  cursor: pointer;
+}
+
 .footer {
   height: 10vh;
   background-color: #4b89dc;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
+  padding-right: 2rem;
 }
 
-.title {
-  color: white;
-  font-size: xx-large;
-  font-weight: 800;
+.logout-btn {
   text-align: center;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  color: #4b89dc;
+  font-size: large;
+  font-weight: 800;
+  cursor: pointer;
+}
+.logout-btn:hover {
+  background-color: #e2e2e2;
+}
+.logout-btn:active {
+  background-color: #bbbbbb;
 }
