@@ -1,7 +1,7 @@
 form {
   display: flex;
   flex-direction: column;
-  min-width: 400px;
+  min-width: 600px;
   padding: 1rem;
 }
 
@@ -13,6 +13,11 @@ label {
 input {
   border: 1px solid #ccc;
   border-radius: 4px;
+  min-height: 40px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: 800;
 }
 
 p {
@@ -33,7 +38,7 @@ button:disabled {
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 1.4rem;
   cursor: pointer;
   transition: background-color 0.2s;
   margin-top: 1rem;

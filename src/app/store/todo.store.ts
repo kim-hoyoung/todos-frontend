@@ -54,7 +54,7 @@ export class TodoStore {
     const newTodo: Todo = {
       id: crypto.randomUUID(),
       title: newText,
-      content: '',
+      content: '해야할 일에 대한 상세 내용을 입력해 주세요.',
       priority: 'normal',
       isCompleted: false,
       completedAt: null,
@@ -64,4 +64,28 @@ export class TodoStore {
 
     this.todoList.update((list) => [...list, newTodo]);
   }
+
+  updateTodo(
+    id: string,
+    patch: { title: string; priority: 'normal' | 'urgent' | 'low'; content: string }
+  ) {
+    this.todoList.update((todos) =>
+      todos.map((t) =>
+        t.id === id
+          ? {
+              ...t,
+              ...patch,
+              updatedAt: new Date().toISOString(),
+            }
+          : t
+      )
+    );
+
+    const current = this.selectedTodo();
+    if (current?.id === id) {
+      this.selectedTodo.set({ ...current, ...patch, updatedAt: new Date().toISOString() });
+    }
+  }
+
+  deleteTodo() {}
 }
