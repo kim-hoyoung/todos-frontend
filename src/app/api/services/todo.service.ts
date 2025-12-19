@@ -25,26 +25,26 @@ export class TodoService {
   }
   // 2) 단건 조회 GET /todos/:id
   getTodoById(id: string): Observable<ApiResponse<Todo>> {
-    return this.api.get<ApiResponse<Todo>>('/todos/${id}');
+    return this.api.get<ApiResponse<Todo>>(`/todos/${id}`);
   }
 
   // 3) 생성 POST /todos
   createTodo(body: TodoUpsertPayload): Observable<ApiResponse<Todo>> {
-    return this.api.post<ApiResponse<Todo>>('/todos', body);
+    return this.api.post<ApiResponse<Todo>>(`/todos`, body);
   }
 
   // 4) 수정 PUT /todos/:id
   updateTodo(id: string, body: TodoUpsertPayload): Observable<ApiResponse<Todo>> {
-    return this.api.put<ApiResponse<Todo>>('/todos/${id}', body);
+    return this.api.put<ApiResponse<Todo>>(`/todos/${id}`, body);
   }
 
   // 5) 완료 토글 PATCH /todos/:id/complete
   toggleComplete(id: string): Observable<ApiResponse<Todo>> {
-    return this.api.patch<ApiResponse<Todo>>('/todos/${id}/complete', {});
+    return this.api.patch<ApiResponse<Todo>>(`/todos/${id}/complete`, {});
   }
 
   // 6) 삭제 DELETE /todos/:id
   deleteTodo(id: string): Observable<ApiResponse<null>> {
-    return this.api.delete<ApiResponse<null>>('/todos/${id}');
+    return this.api.delete<ApiResponse<null>>(`/todos/${id}`);
   }
 }

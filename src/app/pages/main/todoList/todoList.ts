@@ -22,6 +22,10 @@ export class TodoList {
 
   constructor(public todoStore: TodoStore) {}
 
+  async ngOnInit() {
+    await this.todoStore.loadTodos();
+  }
+
   add() {
     this.todoStore.addTodo(this.newText);
     this.newText = '';
@@ -43,6 +47,7 @@ export class TodoList {
 
   saveEdit() {
     const todo = this.todoStore.selectedTodo();
+    confirm('변경사항을 저장하시겠습니까?');
     if (!todo) return;
 
     if (!this.editTitle.trim()) return;
