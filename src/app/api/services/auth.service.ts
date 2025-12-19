@@ -26,4 +26,8 @@ export class Auth {
       })
     );
   }
+
+  deleteAccount(): Observable<void> {
+    return this.api.delete<void>('/users/me');
+  }
 }
