@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { email, Field, form, minLength, pattern, required } from '@angular/forms/signals';
+import { email, Field, form, minLength, pattern, required, validate } from '@angular/forms/signals';
 import { Router } from '@angular/router';
 import { Auth } from '../../api/services/auth.service';
 import { firstValueFrom } from 'rxjs';
@@ -7,6 +7,7 @@ import { firstValueFrom } from 'rxjs';
 interface SignupData {
   email: string;
   password: string;
+  passwordConfirm: string;
 }
 
 @Component({
@@ -22,18 +23,48 @@ export class Signup {
   signupModel = signal<SignupData>({
     email: '',
     password: '',
+    passwordConfirm: '',
   });
 
   serverError = signal<string>('');
+
+  // 이메일 중복 체크
+  isEmailDuplicate = signal(false);
+  emailCheckMessage = signal<string>('');
 
   signupForm = form(this.signupModel, (schemaPath) => {
     required(schemaPath.email, { message: '이메일을 입력해 주세요.' });
     email(schemaPath.email);
     pattern(schemaPath.email, /.+@.+\..+/, { message: '이메일은 @와 .을 포함해야 합니다.' });
 
+    // 이메일 중복 체크
+    validate(schemaPath.email, ({ value }) => {
+      if (this.isEmailDuplicate()) {
+        return {
+          kind: 'emailDuplicate',
+          message: '중복된 계정입니다. 다른 이메일을 사용해 주세요.',
+        };
+      }
+      return null;
+    });
+
     // 비밀번호
     required(schemaPath.password, { message: '비밀번호를 입력해 주세요' });
     minLength(schemaPath.password, 8, { message: '비밀번호는 최소 8자 이상이어야 합니다.' });
+
+    // 비밀번호 확인
+    required(schemaPath.passwordConfirm, { message: '비밀번호를 한 번 더 입력해 주세요.' });
+    validate(schemaPath.passwordConfirm, ({ value, valueOf }) => {
+      const confirm = value();
+      const password = valueOf(schemaPath.password);
+
+      if (!confirm) return null;
+
+      if (confirm !== password) {
+        return { kind: 'paswrdMismatch', message: '비밀번호가 다릅니다.' };
+      }
+      return null;
+    });
   });
 
   // 회원가입 요청
@@ -49,7 +80,9 @@ export class Signup {
     console.log('Logging in with:', credentials);
 
     try {
-      const res = await firstValueFrom(this.authApi.signup(credentials));
+      const { email, password } = credentials;
+      const res = await firstValueFrom(this.authApi.signup({ email, password }));
+
       alert(res.message);
 
       localStorage.setItem('token', res.token);

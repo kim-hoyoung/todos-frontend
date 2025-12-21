@@ -1,10 +1,15 @@
 <div class="main-layout">
   <h2>회원가입</h2>
   <form (submit)="onSubmit($event)">
-    <div>
+    <div class="">
       <label>
         Email:
-        <input type="email" [field]="signupForm.email" />
+        <input
+          type="email"
+          placeholder="사용하실 이메일을 입력해 주세요."
+          [field]="signupForm.email"
+          (input)="isEmailDuplicate.set(false); emailCheckMessage.set('')"
+        />
       </label>
 
       @if (signupForm.email().touched() && signupForm.email().invalid()) {
@@ -15,14 +20,33 @@
       </ul>
       }
     </div>
+
     <div>
       <label>
         password:
-        <input type="password" [field]="signupForm.password" />
+        <input
+          type="password"
+          placeholder="비밀번호는 8자 이상으로 설정해 주세요"
+          [field]="signupForm.password"
+        />
       </label>
       @if (signupForm.password().touched() && signupForm.password().invalid()) {
       <ul class="error-list">
         @for(error of signupForm.password().errors(); track error) {
+        <li>{{ error.message }}</li>
+        }
+      </ul>
+      }
+    </div>
+
+    <div>
+      <label>
+        비밀번호 확인
+        <input type="password" placeholder="비밀번호 확인" [field]="signupForm.passwordConfirm" />
+      </label>
+      @if (signupForm.passwordConfirm().touched() && signupForm.passwordConfirm().invalid()) {
+      <ul class="error-list">
+        @for (error of signupForm.passwordConfirm().errors(); track error) {
         <li>{{ error.message }}</li>
         }
       </ul>
