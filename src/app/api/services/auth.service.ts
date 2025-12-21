@@ -10,9 +10,11 @@ import { AuthRequest, AuthResponse } from '../../models/auth';
 export class Auth {
   constructor(private api: HttpService) {}
 
+  // 회원가입
   signup(body: AuthRequest): Observable<AuthResponse> {
     return this.api.post<AuthResponse>(`/users/create`, body);
   }
+  // 로그인
   login(body: AuthRequest): Observable<AuthResponse> {
     return this.api.post<AuthResponse>(`/users/login`, body).pipe(
       catchError((err: HttpErrorResponse) => {
@@ -26,7 +28,7 @@ export class Auth {
       })
     );
   }
-
+  // 회원 탈퇴
   deleteAccount(): Observable<void> {
     return this.api.delete<void>('/users/me');
   }
