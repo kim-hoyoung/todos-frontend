@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class TodoList {
   newText: string = '';
+  searchText: string = '';
 
   isEditMode = false;
 

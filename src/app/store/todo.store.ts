@@ -5,7 +5,6 @@ import { first, firstValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TodoStore {
-  // 임시데이터
   todoList = signal<Todo[]>([]);
 
   selectedTodo = signal<Todo | null>(null);
@@ -130,5 +129,56 @@ export class TodoStore {
 
   setSelectedDate(date: Date) {
     this.selectedDate.set(date);
+  }
+
+  // 검색
+  async setSearch(keyword: string) {
+    const next = (keyword ?? '').trim();
+    this.query.set({ ...this.query(), keyword: next || undefined });
+    await this.loadTodos({ keyword: next || undefined });
+  }
+
+  // 정렬방향
+  async toggleSortMode() {
+    const { sort, order } = this.query();
+
+    if (sort === 'createdAt' && order === 'desc') {
+      this.query.set({ ...this.query(), sort: 'createdAt', order: 'asc' });
+      await this.loadTodos({ sort: 'createdAt', order: 'asc' });
+      return;
+    }
+    if (sort === 'createdAt' && order === 'asc') {
+      this.query.set({ ...this.query(), sort: 'updatedAt', order: 'desc' });
+      await this.loadTodos({ sort: 'updatedAt', order: 'desc' });
+      return;
+    }
+
+    this.query.set({ ...this.query(), sort: 'createdAt', order: 'desc' });
+    await this.loadTodos({ sort: 'createdAt', order: 'desc' });
+  }
+
+  getSortLabel() {
+    const { sort, order } = this.query();
+
+    if (sort === 'createdAt' && order === 'desc') return '최신순';
+    if (sort === 'createdAt' && order === 'asc') return '오래된순';
+    if (sort === 'updatedAt') return '업데이트순';
+
+    return '정렬';
+  }
+
+  // 정렬 기준
+  async setSortField(sort: GetTodosQuery['sort']) {
+    const q = this.query();
+    this.query.set({ ...q, sort });
+
+    await this.loadTodos({ sort });
+  }
+  // 우선순위
+  async setPriorityFilter(priority?: TodoPriority) {
+    const q = this.query();
+    const next = priority ?? undefined;
+    this.query.set({ ...q, priorityFilter: next });
+    await this.loadTodos({ priorityFilter: next });
   }
 }
