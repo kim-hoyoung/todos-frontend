@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { Todo } from '../../../../models/todo';
 import { CommonModule } from '@angular/common';
 import { TodoStore } from '../../../../store/todo.store';
@@ -15,8 +15,10 @@ export class TodoCreatePanel {
 
   constructor(public todoStore: TodoStore, private router: Router, private route: ActivatedRoute) {}
 
+  @Output() todoClick = new EventEmitter<Todo>();
+
   onClickTodo(todo: Todo) {
-    this.todoStore.selectTodo(todo);
+    this.todoClick.emit(todo);
 
     this.router.navigate([], {
       relativeTo: this.route,

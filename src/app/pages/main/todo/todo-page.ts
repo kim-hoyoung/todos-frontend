@@ -41,7 +41,6 @@ export class TodoPage {
       }
     });
   }
-
   // 투두 추가하기
   async add() {
     try {
@@ -69,6 +68,17 @@ export class TodoPage {
   cancelEdit() {
     this.isEditMode = false;
   }
+  // 투두 수정 이동
+  onClickTodo(todo: any) {
+    const current = this.todoStore.selectedTodo();
+    if (this.isEditMode && current?.id !== todo.id) {
+      const isMove = confirm('수정 중인 내용이 있어요. 이동하면 수정내용이 사라져요. 이동할까요?');
+      if (!isMove) return;
+
+      this.cancelEdit();
+    }
+    this.todoStore.selectTodo(todo);
+  }
   // 투두 수정 저장
   async saveEdit() {
     const todo = this.todoStore.selectedTodo();
@@ -78,7 +88,7 @@ export class TodoPage {
     if (!this.editTitle.trim()) return;
 
     try {
-      this.todoStore.updateTodo(todo.id, {
+      await this.todoStore.updateTodo(todo.id, {
         title: this.editTitle.trim(),
         priority: this.editPriority,
         content: this.editContent.trim(),

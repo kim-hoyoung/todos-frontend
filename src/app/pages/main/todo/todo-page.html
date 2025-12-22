@@ -32,7 +32,7 @@
     </div>
 
     <div class="todo-content">
-      <app-todo-create-panel></app-todo-create-panel>
+      <app-todo-create-panel (todoClick)="onClickTodo($event)"></app-todo-create-panel>
     </div>
   </div>
   <!-- 수정모드 -->
