@@ -1,7 +1,8 @@
 <div class="todo-item-wrapper">
   <div class="non-completed-item">
     <!-- 미완료 -->
-    <div class="title">미완료</div>
+    <div class="title">미완료 {{ activeCount }}</div>
+
     <div class="empty-state" *ngIf="todoStore.activeTodosByDate().length === 0">
       오늘의 할 일을 추가해 주세요
     </div>
@@ -28,7 +29,7 @@
   </div>
   <div class="completed-item">
     <!-- 완료 -->
-    <div class="title">완료</div>
+    <div class="title">완료 {{ completedCount }}</div>
     <div class="empty-state" *ngIf="todoStore.completedTodosByDate().length === 0">
       완료한 Todo 가 없습니다.
     </div>

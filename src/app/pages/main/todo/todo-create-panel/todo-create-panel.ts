@@ -13,4 +13,11 @@ export class TodoCreatePanel {
   todoList = signal<Todo[]>([]);
 
   constructor(public todoStore: TodoStore) {}
+
+  get activeCount(): number {
+    return this.todoStore.activeTodosByDate().length;
+  }
+  get completedCount(): number {
+    return this.todoStore.completedTodosByDate().length;
+  }
 }

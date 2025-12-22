@@ -27,11 +27,12 @@ export class TodoPage {
     await this.todoStore.loadTodos();
   }
 
+  // 투두 추가하기
   add() {
     this.todoStore.addTodo(this.newText);
     this.newText = '';
   }
-
+  // 투두 수정
   startEdit() {
     const todo = this.todoStore.selectedTodo();
     if (!todo) return;
@@ -41,11 +42,11 @@ export class TodoPage {
     this.editPriority = (todo.priority ?? 'normal') as any;
     this.editContent = todo.content ?? '';
   }
-
+  // 투두 수정 취소
   cancelEdit() {
     this.isEditMode = false;
   }
-
+  // 투두 수정 저장
   saveEdit() {
     const todo = this.todoStore.selectedTodo();
     const save = confirm('변경사항을 저장하시겠습니까?');
@@ -60,7 +61,7 @@ export class TodoPage {
     });
     this.isEditMode = false;
   }
-
+  // 투두 삭제
   deleteSelected() {
     const todo = this.todoStore.selectedTodo();
     if (!todo) return;
