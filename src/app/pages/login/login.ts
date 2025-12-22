@@ -48,7 +48,7 @@ export class Login {
     }
 
     const credentials = this.loginModel();
-    console.log('Logging in with:', credentials);
+    //console.log('Logging in with:', credentials);
 
     try {
       const res = await firstValueFrom(this.authApi.login(credentials));

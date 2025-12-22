@@ -1,3 +1,88 @@
+/* 레이아웃 ----------------------- */
+.todo-item-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 12px;
+  gap: 16px;
+}
+
+/* 미완료 / 완료 카드 영역 ------------ */
+.title {
+  text-align: center;
+
+  margin-bottom: 2rem;
+  padding: 6px 6px 10px 6px;
+
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-base);
+}
+.non-completed-item,
+.completed-item {
+  display: flex;
+  min-height: 420px;
+  flex-direction: column;
+
+  padding: 14px;
+
+  overflow: hidden;
+  min-height: 0;
+
+  border: 1px solid var(--light-border-color);
+  border-radius: 16px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 스크롤 영역 ---------- */
+.todo-scroll {
+  max-height: 380px;
+  margin-top: 10px;
+  padding-right: 6px;
+  overflow: auto;
+}
+.todo-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.todo-scroll::-webkit-scrollbar-thumb {
+  background: #d9e2ef;
+  border-radius: 999px;
+}
+.todo-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 투두 아이템 -------------- */
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  max-width: 250px;
+  width: 100%;
+
+  gap: 20px;
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 1rem;
+
+  border-bottom: 1px solid #1111;
+}
+
+.todo-title-text {
+  flex: 1;
+  min-width: 0;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  cursor: pointer;
+}
+.todo-title-text:hover,
+.todo-title-text.selected {
+  font-weight: 900;
+}
+/* 투두 체크박스 ------------ */
 .todo-check {
   display: inline-flex;
   align-items: center;
@@ -22,8 +107,8 @@
 }
 
 .todo-check input:checked + .todo-check__box {
-  background-color: #4b89dc;
-  border-color: #4b89dc;
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
 .todo-check input:checked + .todo-check__box::after {
@@ -33,91 +118,14 @@
   line-height: 1;
 }
 
-.todo-item-wrapper {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 12px;
-  gap: 16px;
-}
-
-.todo-item {
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  max-width: 250px;
-
-  width: 100%;
-  gap: 20px;
-  margin: 0 0 1.5rem 0;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #1111;
-}
-
-.todo-title-text {
-  flex: 1;
-  min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /* max-width: 250px; */
-  cursor: pointer;
-}
-.todo-title-text:hover {
-  font-weight: 900;
-}
-.todo-title-text.selected {
-  font-weight: 900;
-}
-
-.non-completed-item,
-.completed-item {
-  min-height: 420px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  min-height: 0;
-  border: 1px solid #e9edf3;
-  border-radius: 16px;
-  padding: 14px;
-  box-shadow: 0 6px 20px rgba(16, 24, 40, 0.06);
-}
-
-.todo-scroll {
-  margin-top: 10px;
-  padding-right: 6px;
-  overflow: auto;
-  max-height: 380px;
-}
-
-.todo-scroll::-webkit-scrollbar {
-  width: 8px;
-}
-.todo-scroll::-webkit-scrollbar-thumb {
-  background: #d9e2ef;
-  border-radius: 999px;
-}
-.todo-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.title {
-  text-align: center;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  font-size: 16px;
-  font-weight: 700;
-  padding: 6px 6px 10px 6px;
-  color: #666;
-}
-
+/* 예외 --------- */
 .empty-state {
+  display: flex;
   justify-content: center;
   text-align: center;
   align-items: center;
 
   font-size: 16px;
   font-weight: 800;
-  color: #a3a3a3;
+  color: var(--text-muted);
 }

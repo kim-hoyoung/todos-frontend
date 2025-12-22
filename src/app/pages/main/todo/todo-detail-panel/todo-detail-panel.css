@@ -1,20 +1,25 @@
+/* 디테일 카드 부분 */
 .todo-detail {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
+
   gap: 20px;
+  padding: 24px;
+
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* 메타 정보 영역 */
+/* 메타 정보 영역 (생성 일자, 수정일자 ..) */
 .todo-meta ul {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+
   gap: 12px 24px;
   padding: 0;
   margin: 0;
+
   list-style: none;
 }
 
@@ -22,65 +27,76 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f5f7fa;
+
   padding: 10px 14px;
+  background: #f5f7fa;
   border-radius: 8px;
+
   font-size: 17px;
 }
 
 .todo-meta .label {
-  color: #666;
+  color: var(--text-base);
   font-weight: 900;
 }
 
 .todo-meta .value {
-  color: #222;
+  color: var(--text-highlight);
 }
 
 /* 우선순위 뱃지 */
 .priority {
   padding: 4px 10px;
+
   border-radius: 12px;
+
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
+/* urgent / normal /low  우선순위 뱃지 색상 구분*/
 .priority.urgent {
-  background: #ffe5e5;
-  color: #d64545;
+  background: var(--urgent-bg-color);
+  color: var(--urgent-color);
 }
 
 .priority.normal {
-  background: #e8f0ff;
-  color: #3b6eea;
+  background: var(--normal-bg-color);
+  color: var(--normal-color);
 }
 
 .priority.low {
-  background: #e6f7ef;
-  color: #2e8b57;
+  background: var(--low-bg-color);
+  color: var(--low-color);
 }
 
 /* 내용 영역 */
 .todo-content {
-  background: #fafafa;
   border-radius: 8px;
   padding: 16px;
+
   min-height: 200px;
-  line-height: 1.5;
-  color: #333;
-  font-size: 17px;
   max-width: 100%;
+
+  font-size: 17px;
+  line-height: 1.5;
+
+  color: var(--text-base);
+  background: white;
 }
 
+/* 내용 없을 때 */
 .todo-detail-empty {
-  height: 100%;
-  min-height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 
-  color: #9ca3af;
+  height: 100%;
+  min-height: 300px;
+
+  color: var(--text-muted);
+
   font-size: 16px;
   font-weight: 600;
-  text-align: center;
 }

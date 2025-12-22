@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { GetTodosQuery, Todo, TodoPriority, TodoUpsertPayload } from '../models/todo';
 import { TodoService } from '../api/services/todo.service';
-import { first, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TodoStore {
@@ -19,11 +19,21 @@ export class TodoStore {
 
   constructor(private todoApi: TodoService) {}
 
+  // 공통 에러 처리 래퍼
+  private async runApi<T>(task: Promise<T>) {
+    try {
+      return await task;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
+  }
+
   async loadTodos(override?: GetTodosQuery) {
     const nextQuery = { ...this.query(), ...(override ?? {}) };
     this.query.set(nextQuery);
 
-    const res = await firstValueFrom(this.todoApi.getTodos(nextQuery));
+    const res = await this.runApi(firstValueFrom(this.todoApi.getTodos(nextQuery)));
     const list = res.data ?? [];
 
     this.todoList.set(list);
@@ -42,16 +52,16 @@ export class TodoStore {
 
   // 투두 단건 조회
   async selectTodoById(id: string) {
-    const res = await firstValueFrom(this.todoApi.getTodoById(id));
+    const res = await this.runApi(firstValueFrom(this.todoApi.getTodoById(id)));
     const todo = res.data ?? null;
     this.selectedTodo.set(todo);
   }
 
   // 투두 할 일 추가 -------------------
   async addTodo(title: string) {
-    if (!title.trim()) {
-      alert('할 일을 작성해 주세요');
-      return;
+    const next = (title ?? '').trim();
+    if (!next) {
+      throw new Error('EMPTY_TITLE');
     }
     const payload: TodoUpsertPayload = {
       title: title.trim(),
@@ -59,7 +69,7 @@ export class TodoStore {
       priority: 'normal',
     };
 
-    const res = await firstValueFrom(this.todoApi.createTodo(payload));
+    const res = await this.runApi(firstValueFrom(this.todoApi.createTodo(payload)));
     const created = res.data;
 
     // 생성날짜 내림차순으로 정렬.
@@ -85,7 +95,7 @@ export class TodoStore {
 
   // 투두 할 일 완료 토글 --------------------
   async toggleTodo(id: string) {
-    const res = await firstValueFrom(this.todoApi.toggleComplete(id));
+    const res = await this.runApi(firstValueFrom(this.todoApi.toggleComplete(id)));
     const updated = res.data;
 
     this.todoList.update((list) => list.map((t) => (t.id === id ? updated : t)));
@@ -94,18 +104,19 @@ export class TodoStore {
   }
   // 투두 일정 삭제 -----------------------------
   async deleteTodo(id: string) {
-    const deleteItem = confirm('정말 삭제하시겠습니까?');
-    if (!deleteItem) return;
+    try {
+      await this.runApi(firstValueFrom(this.todoApi.deleteTodo(id)));
 
-    await firstValueFrom(this.todoApi.deleteTodo(id));
+      this.todoList.update((list) => list.filter((t) => t.id !== id));
+      const selected = this.selectedTodo();
 
-    this.todoList.update((list) => list.filter((t) => t.id !== id));
-    const selected = this.selectedTodo();
-
-    if (selected?.id === id) this.selectedTodo.set(null);
-
-    alert('일정이 삭제되었습니다.');
+      if (selected?.id === id) this.selectedTodo.set(null);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
+
   // 날짜별 투두 일정 조회
   todosBySelectedDate() {
     const day = this.selectedDate();
@@ -119,14 +130,12 @@ export class TodoStore {
       a.getDate() === b.getDate()
     );
   }
-
   incompleteTodosByDate() {
     return this.todosBySelectedDate().filter((t) => !t.isCompleted);
   }
   completedTodosByDate() {
     return this.todosBySelectedDate().filter((t) => t.isCompleted);
   }
-
   setSelectedDate(date: Date) {
     this.selectedDate.set(date);
   }

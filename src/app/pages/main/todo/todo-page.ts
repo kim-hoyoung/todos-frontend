@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TodoStore } from '../../../store/todo.store';
 import { TodoDetailPanel } from './todo-detail-panel/todo-detail-panel';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-todo-page',
@@ -28,20 +28,32 @@ export class TodoPage {
     // 투두 목록 불러오기.
     await this.todoStore.loadTodos();
 
-    this.route.queryParamMap.subscribe((map) => {
+    this.route.queryParamMap.subscribe(async (map) => {
       const todoId = map.get('todoId');
       if (!todoId) {
         this.todoStore.selectedTodo.set(null);
         return;
       }
-      this.todoStore.selectTodoById(todoId);
+      try {
+        this.todoStore.selectTodoById(todoId);
+      } catch (e) {
+        alert('조회에 실패했습니다.');
+      }
     });
   }
 
   // 투두 추가하기
-  add() {
-    this.todoStore.addTodo(this.newText);
-    this.newText = '';
+  async add() {
+    try {
+      await this.todoStore.addTodo(this.newText);
+      this.newText = '';
+    } catch (e: any) {
+      if (e?.message === 'EMPTY_TITLE') {
+        alert('할 일을 작성해 주세요.');
+        return;
+      }
+      alert('추가에 실패했습니다.');
+    }
   }
   // 투두 수정
   startEdit() {
@@ -58,26 +70,38 @@ export class TodoPage {
     this.isEditMode = false;
   }
   // 투두 수정 저장
-  saveEdit() {
+  async saveEdit() {
     const todo = this.todoStore.selectedTodo();
     const save = confirm('변경사항을 저장하시겠습니까?');
     if (!save) return;
     if (!todo) return;
     if (!this.editTitle.trim()) return;
 
-    this.todoStore.updateTodo(todo.id, {
-      title: this.editTitle.trim(),
-      priority: this.editPriority,
-      content: this.editContent.trim(),
-    });
-    this.isEditMode = false;
+    try {
+      this.todoStore.updateTodo(todo.id, {
+        title: this.editTitle.trim(),
+        priority: this.editPriority,
+        content: this.editContent.trim(),
+      });
+      this.isEditMode = false;
+      alert('수정이 완료되었습니다.');
+    } catch (e) {
+      alert('수정에 실패했습니다.');
+    }
   }
   // 투두 삭제
-  deleteSelected() {
+  async deleteSelected() {
     const todo = this.todoStore.selectedTodo();
     if (!todo) return;
 
-    this.todoStore.deleteTodo(todo.id);
-    this.todoStore.selectedTodo;
+    const deleteItem = confirm('정말 삭제하시겠습니까?');
+    if (!deleteItem) return;
+
+    try {
+      await this.todoStore.deleteTodo(todo.id);
+      alert('일정이 삭제되었습니다.');
+    } catch (e) {
+      alert('삭제에 실패했습니다');
+    }
   }
 }

@@ -1,30 +1,42 @@
+/* 레이아웃 --------------------*/
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* 폼 부분 --------------------*/
 form {
   display: flex;
   flex-direction: column;
   min-width: 600px;
   padding: 1rem;
 }
-
 label {
   display: flex;
   flex-direction: column;
   margin-bottom: 0.25rem;
 }
 input {
-  border: 1px solid #ccc;
-  border-radius: 4px;
   min-height: 40px;
   padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
 }
+
+/* 텍스트부분 --------------------*/
 h2 {
   font-size: 24px;
   font-weight: 800;
 }
-
 p {
   margin: 0.5rem 0;
-  color: #666;
+  color: var(--text-base);
 }
+
+/* 버튼 --------------------*/
 button {
   cursor: pointer;
 }
@@ -34,21 +46,24 @@ button:disabled {
 }
 
 .btn-primary {
+  margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  background-color: #4285f4;
+
+  background-color: var(--primary);
   color: white;
+
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius);
   font-size: 1.4rem;
+
   cursor: pointer;
   transition: background-color 0.2s;
-  margin-top: 1rem;
 }
 .btn-primary:hover {
-  background-color: #357ae8;
+  background-color: var(--primary-hover);
 }
 .btn-primary:active {
-  background-color: #2a65c8;
+  background-color: var(--primary-active);
 }
 .btn-text {
   background: none;
@@ -62,21 +77,15 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-
-.error-list {
-  color: red;
-  margin: 0.25rem 0 0 0;
-  padding-left: 0;
-  margin-bottom: 1rem;
-}
-.main-layout {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  align-items: center;
-}
-.signUp {
+.signUp-btn {
   text-align: right;
   margin: 1rem;
+}
+
+/* 유효성 검사 메시지 --------------- */
+.error-list {
+  color: red;
+
+  margin: 0.25rem 0 1rem 0;
+  padding-left: 0;
 }
