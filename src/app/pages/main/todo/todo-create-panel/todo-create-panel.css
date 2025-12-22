@@ -27,7 +27,6 @@
   padding: 14px;
 
   overflow: hidden;
-  min-height: 0;
 
   border: 1px solid var(--light-border-color);
   border-radius: 16px;

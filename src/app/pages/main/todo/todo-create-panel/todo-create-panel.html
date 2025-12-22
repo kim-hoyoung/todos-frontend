@@ -13,11 +13,11 @@
         *ngFor="let todo of todoStore.incompleteTodosByDate()"
         (click)="onClickTodo(todo)"
       >
-        <label class="todo-check">
+        <label class="todo-check" (click)="$event.stopPropagation()">
           <input
             type="checkbox"
             [checked]="todo.isCompleted"
-            (click)="todoClick.emit(todo)"
+            (click)="$event.stopPropagation()"
             (change)="toggle.emit(todo.id)"
           />
           <span class="todo-check__box"></span>
@@ -40,11 +40,11 @@
         *ngFor="let todo of todoStore.completedTodosByDate()"
         (click)="onClickTodo(todo)"
       >
-        <label class="todo-check">
+        <label class="todo-check" (click)="$event.stopPropagation()">
           <input
             type="checkbox"
             [checked]="todo.isCompleted"
-            (click)="todoClick.emit(todo)"
+            (click)="$event.stopPropagation()"
             (change)="toggle.emit(todo.id)"
           />
           <span class="todo-check__box"></span>

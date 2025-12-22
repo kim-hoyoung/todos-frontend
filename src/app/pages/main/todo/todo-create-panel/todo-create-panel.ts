@@ -26,6 +26,11 @@ export class TodoCreatePanel {
     });
   }
 
+  onToggle(todoId: string, event: Event) {
+    event.stopPropagation();
+    this.toggle.emit(todoId);
+  }
+
   get incompleteCount(): number {
     return this.todoStore.incompleteTodosByDate().length;
   }
