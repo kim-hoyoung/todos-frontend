@@ -5,6 +5,7 @@ import { TodoStore } from '../../../store/todo.store';
 import { TodoDetailPanel } from './todo-detail-panel/todo-detail-panel';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { catchError, EMPTY, exhaustMap, finalize, from, Subject, tap } from 'rxjs';
 
 @Component({
   selector: 'app-todo-page',
@@ -17,12 +18,40 @@ export class TodoPage {
   searchText: string = '';
 
   isEditMode = false;
+  isAdding = false;
+
+  private addClick$ = new Subject<void>();
 
   editTitle = '';
   editPriority: 'urgent' | 'normal' | 'low' = 'normal';
   editContent = '';
 
-  constructor(public todoStore: TodoStore, private route: ActivatedRoute) {}
+  constructor(public todoStore: TodoStore, private route: ActivatedRoute) {
+    this.addClick$
+      //exhaustMap으로 무분별한 api호출 방지
+      .pipe(
+        exhaustMap(() => {
+          this.isAdding = true;
+          const text = this.newText;
+
+          return from(this.todoStore.addTodo(this.newText)).pipe(
+            tap(() => (this.newText = '')),
+            catchError((e: any) => {
+              if (e?.message === 'EMPTY_TITLE') {
+                alert('할 일을 작성해 주세요.');
+                return EMPTY;
+              }
+              alert('추가에 실패했습니다.');
+              return EMPTY;
+            }),
+            finalize(() => {
+              this.isAdding = false;
+            })
+          );
+        })
+      )
+      .subscribe();
+  }
 
   async ngOnInit() {
     // 투두 목록 불러오기.
@@ -42,17 +71,8 @@ export class TodoPage {
     });
   }
   // 투두 추가하기
-  async add() {
-    try {
-      await this.todoStore.addTodo(this.newText);
-      this.newText = '';
-    } catch (e: any) {
-      if (e?.message === 'EMPTY_TITLE') {
-        alert('할 일을 작성해 주세요.');
-        return;
-      }
-      alert('추가에 실패했습니다.');
-    }
+  add() {
+    this.addClick$.next();
   }
   // 투두 수정
   startEdit() {

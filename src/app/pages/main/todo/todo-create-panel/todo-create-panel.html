@@ -17,8 +17,8 @@
           <input
             type="checkbox"
             [checked]="todo.isCompleted"
-            (click)="$event.stopPropagation()"
-            (change)="todoStore.toggleTodo(todo.id)"
+            (click)="todoClick.emit(todo)"
+            (change)="toggle.emit(todo.id)"
           />
           <span class="todo-check__box"></span>
         </label>
@@ -44,8 +44,8 @@
           <input
             type="checkbox"
             [checked]="todo.isCompleted"
-            (click)="$event.stopPropagation()"
-            (change)="todoStore.toggleTodo(todo.id)"
+            (click)="todoClick.emit(todo)"
+            (change)="toggle.emit(todo.id)"
           />
           <span class="todo-check__box"></span>
         </label>

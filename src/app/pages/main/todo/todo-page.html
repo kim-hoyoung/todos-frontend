@@ -2,7 +2,7 @@
   <div class="todo-list">
     <div class="todo-input-wrapper">
       <input class="todo-input" type="text" placeholder="할 일 추가" [(ngModel)]="newText" />
-      <button class="add-btn" type="button" (click)="add()">+</button>
+      <button class="add-btn" type="button" (click)="add()" [disabled]="isAdding">+</button>
     </div>
 
     <div class="toolbar">
@@ -32,7 +32,10 @@
     </div>
 
     <div class="todo-content">
-      <app-todo-create-panel (todoClick)="onClickTodo($event)"></app-todo-create-panel>
+      <app-todo-create-panel
+        (todoClick)="onClickTodo($event)"
+        (toggle)="todoStore.toggleTodo($event)"
+      ></app-todo-create-panel>
     </div>
   </div>
   <!-- 수정모드 -->

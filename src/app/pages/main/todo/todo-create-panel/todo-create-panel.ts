@@ -11,11 +11,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './todo-create-panel.css',
 })
 export class TodoCreatePanel {
-  todoList = signal<Todo[]>([]);
-
   constructor(public todoStore: TodoStore, private router: Router, private route: ActivatedRoute) {}
 
   @Output() todoClick = new EventEmitter<Todo>();
+  @Output() toggle = new EventEmitter<string>();
 
   onClickTodo(todo: Todo) {
     this.todoClick.emit(todo);
