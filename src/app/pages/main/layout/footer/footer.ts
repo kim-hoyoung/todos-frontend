@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Auth } from '../../../api/services/auth.service';
+import { Auth } from '../../../../api/services/auth.service';
 
 @Component({
   selector: 'app-footer',

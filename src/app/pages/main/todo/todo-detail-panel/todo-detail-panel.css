@@ -71,3 +71,16 @@
   font-size: 17px;
   max-width: 100%;
 }
+
+.todo-detail-empty {
+  height: 100%;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #9ca3af;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}

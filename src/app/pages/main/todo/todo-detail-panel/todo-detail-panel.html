@@ -1,0 +1,38 @@
+<ng-container *ngIf="todoStore.selectedTodo() as todo; else emptyDetail">
+  <div class="todo-detail">
+    <div class="todo-meta">
+      <ul>
+        <li>
+          <span class="label">생성일자</span>
+          <span class="value">{{ todo.createdAt | date : 'yyyy-MM-dd' }}</span>
+        </li>
+        <li>
+          <span class="label">수정일자</span>
+          <span class="value">{{
+            todo.updatedAt ? (todo.updatedAt | date : 'yyyy-MM-dd') : '-'
+          }}</span>
+        </li>
+        <li>
+          <span class="label">완료일자</span>
+          <span class="value">{{
+            todo.completedAt ? (todo.completedAt | date : 'yyyy-MM-dd') : '-'
+          }}</span>
+        </li>
+        <li>
+          <span class="label">우선순위</span>
+          <span class="priority" [ngClass]="todo.priority">{{
+            todo.priority === 'urgent' ? '긴급' : todo.priority === 'normal' ? '보통' : '낮음'
+          }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="todo-content">
+      <p>{{ todo.content }}</p>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #emptyDetail>
+  <div class="todo-detail todo-detail-empty">Todo를 선택하시면 상세화면이 나타납니다.</div>
+</ng-template>

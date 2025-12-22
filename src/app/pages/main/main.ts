@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Header } from './header/header';
-import { Footer } from './footer/footer';
-import { TodoList } from './todoList/todoList';
+import { Header } from './layout/header/header';
+import { Footer } from './layout/footer/footer';
+import { TodoPage } from './todo/todo-page';
 
 @Component({
   selector: 'app-main',
-  imports: [Header, TodoList, Footer],
+  imports: [Header, TodoPage, Footer],
   templateUrl: './main.html',
   styleUrl: './main.css',
 })

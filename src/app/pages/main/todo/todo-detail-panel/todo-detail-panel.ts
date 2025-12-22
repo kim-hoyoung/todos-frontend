@@ -3,11 +3,11 @@ import { TodoStore } from '../../../../store/todo.store';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-todo-details',
+  selector: 'app-todo-detail-panel',
   imports: [CommonModule],
-  templateUrl: './todo-details.html',
-  styleUrl: './todo-details.css',
+  templateUrl: './todo-detail-panel.html',
+  styleUrl: './todo-detail-panel.css',
 })
-export class TodoDetails {
+export class TodoDetailPanel {
   constructor(public todoStore: TodoStore) {}
 }

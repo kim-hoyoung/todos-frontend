@@ -32,7 +32,7 @@
     </div>
 
     <div class="todo-content">
-      <app-todo-contents></app-todo-contents>
+      <app-todo-create-panel></app-todo-create-panel>
     </div>
   </div>
   <!-- 수정모드 -->
@@ -57,9 +57,9 @@
       </ng-template>
     </div>
 
-    <div class="todo-details" *ngIf="todoStore.selectedTodo() as todo">
-      <app-todo-details *ngIf="!isEditMode"></app-todo-details>
-      <div class="todo-detail" *ngIf="isEditMode">
+    <div class="todo-details">
+      <app-todo-detail-panel *ngIf="!isEditMode"></app-todo-detail-panel>
+      <div class="todo-detail" *ngIf="isEditMode && todoStore.selectedTodo() as todo">
         <div class="todo-meta">
           <ul>
             <li>

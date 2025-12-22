@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { TodoStore } from '../../../store/todo.store';
+import { TodoStore } from '../../../../store/todo.store';
 
 @Component({
   selector: 'app-header',

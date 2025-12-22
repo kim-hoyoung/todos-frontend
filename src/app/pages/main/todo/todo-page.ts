@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { TodoContents } from './todo-contents/todo-contents';
+import { TodoCreatePanel } from './todo-create-panel/todo-create-panel';
 import { FormsModule } from '@angular/forms';
 import { TodoStore } from '../../../store/todo.store';
-import { TodoDetails } from './todo-details/todo-details';
+import { TodoDetailPanel } from './todo-detail-panel/todo-detail-panel';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-todo-List',
-  imports: [TodoContents, FormsModule, TodoDetails, CommonModule],
-  templateUrl: './todoList.html',
-  styleUrl: './todoList.css',
+  selector: 'app-todo-page',
+  imports: [TodoCreatePanel, FormsModule, TodoDetailPanel, CommonModule],
+  templateUrl: './todo-page.html',
+  styleUrl: './todo-page.css',
 })
-export class TodoList {
+export class TodoPage {
   newText: string = '';
   searchText: string = '';
 
@@ -48,9 +48,9 @@ export class TodoList {
 
   saveEdit() {
     const todo = this.todoStore.selectedTodo();
-    confirm('변경사항을 저장하시겠습니까?');
+    const save = confirm('변경사항을 저장하시겠습니까?');
+    if (!save) return;
     if (!todo) return;
-
     if (!this.editTitle.trim()) return;
 
     this.todoStore.updateTodo(todo.id, {
@@ -66,6 +66,6 @@ export class TodoList {
     if (!todo) return;
 
     this.todoStore.deleteTodo(todo.id);
-    this.todoStore.selectedTodo.set(null);
+    this.todoStore.selectedTodo;
   }
 }
