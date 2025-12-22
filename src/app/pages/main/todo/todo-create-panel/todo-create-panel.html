@@ -1,17 +1,17 @@
 <div class="todo-item-wrapper">
   <div class="non-completed-item">
     <!-- 미완료 -->
-    <div class="title">미완료 {{ activeCount }}</div>
+    <div class="title">미완료 {{ incompleteCount }}</div>
 
-    <div class="empty-state" *ngIf="todoStore.activeTodosByDate().length === 0">
+    <div class="empty-state" *ngIf="todoStore.incompleteTodosByDate().length === 0">
       오늘의 할 일을 추가해 주세요
     </div>
 
-    <div class="todo-scroll" *ngIf="todoStore.activeTodosByDate().length > 0">
+    <div class="todo-scroll" *ngIf="todoStore.incompleteTodosByDate().length > 0">
       <div
         class="todo-item"
-        *ngFor="let todo of todoStore.activeTodosByDate()"
-        (click)="todoStore.selectTodo(todo)"
+        *ngFor="let todo of todoStore.incompleteTodosByDate()"
+        (click)="onClickTodo(todo)"
       >
         <label class="todo-check">
           <input
@@ -37,7 +37,7 @@
       <div
         class="todo-item"
         *ngFor="let todo of todoStore.completedTodosByDate()"
-        (click)="todoStore.selectTodo(todo)"
+        (click)="onClickTodo(todo)"
       >
         <label class="todo-check">
           <input

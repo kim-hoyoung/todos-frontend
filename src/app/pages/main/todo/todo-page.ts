@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TodoStore } from '../../../store/todo.store';
 import { TodoDetailPanel } from './todo-detail-panel/todo-detail-panel';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-page',
@@ -21,10 +22,20 @@ export class TodoPage {
   editPriority: 'urgent' | 'normal' | 'low' = 'normal';
   editContent = '';
 
-  constructor(public todoStore: TodoStore) {}
+  constructor(public todoStore: TodoStore, private route: ActivatedRoute) {}
 
   async ngOnInit() {
+    // 투두 목록 불러오기.
     await this.todoStore.loadTodos();
+
+    this.route.queryParamMap.subscribe((map) => {
+      const todoId = map.get('todoId');
+      if (!todoId) {
+        this.todoStore.selectedTodo.set(null);
+        return;
+      }
+      this.todoStore.selectTodoById(todoId);
+    });
   }
 
   // 투두 추가하기

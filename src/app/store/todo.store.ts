@@ -40,6 +40,13 @@ export class TodoStore {
     this.selectedTodo.set(todo);
   }
 
+  // 투두 단건 조회
+  async selectTodoById(id: string) {
+    const res = await firstValueFrom(this.todoApi.getTodoById(id));
+    const todo = res.data ?? null;
+    this.selectedTodo.set(todo);
+  }
+
   // 투두 할 일 추가 -------------------
   async addTodo(title: string) {
     if (!title.trim()) {
@@ -113,14 +120,7 @@ export class TodoStore {
     );
   }
 
-  // completedTodos() {
-  //   return this.todoList().filter((t) => t.isCompleted);
-  // }
-  // activeTodos() {
-  //   return this.todoList().filter((t) => !t.isCompleted);
-  // }
-
-  activeTodosByDate() {
+  incompleteTodosByDate() {
     return this.todosBySelectedDate().filter((t) => !t.isCompleted);
   }
   completedTodosByDate() {
