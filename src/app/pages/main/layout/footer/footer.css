@@ -1,56 +1,58 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+
+  height: 10vh;
+  padding-right: 2rem;
+
+  background-color: var(--primary);
+}
+
 button {
   cursor: pointer;
 }
 
-.footer {
-  height: 10vh;
-  background-color: #4b89dc;
-  display: flex;
-  align-items: center;
-  justify-content: right;
-  padding-right: 2rem;
-}
-
-.logout-btn {
+.logout-btn,
+.withdraw-btn {
   text-align: center;
-  border: 1px solid #ffffff;
-  border-radius: 10px;
-  background-color: rgb(255, 255, 255);
+  border-radius: var(--radius);
   padding: 10px;
-  color: #4b89dc;
+
   font-size: large;
   font-weight: 800;
-  cursor: pointer;
 }
-.logout-btn:hover {
-  background-color: #e2e2e2;
+.logout-btn {
+  background-color: white;
+  color: var(--primary);
 }
+
+.logout-btn:hover,
 .logout-btn:active {
-  background-color: #bbbbbb;
+  background-color: var(--li-color);
 }
 
 .withdraw-btn {
-  text-align: center;
-  border-radius: 10px;
-  background-color: rgb(255, 0, 0);
+  background-color: var(--urgent-color);
+  color: white;
+
   padding: 10px;
-  color: #ffffff;
+
   font-size: large;
   font-weight: 800;
-  cursor: pointer;
 }
 
-.withdraw-btn:hover {
-  background-color: rgb(156, 2, 2);
-}
+.withdraw-btn:hover,
 .withdraw-btn:active {
-  background-color: rgb(156, 2, 2);
+  background-color: #d33535;
+  color: white;
 }
 
 .footer-btn {
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 20px;
   padding-right: 40px;
 }
