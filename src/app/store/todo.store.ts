@@ -29,6 +29,7 @@ export class TodoStore {
     }
   }
 
+  // 투두 불러오기
   async loadTodos(override?: GetTodosQuery) {
     const nextQuery = { ...this.query(), ...(override ?? {}) };
     this.query.set(nextQuery);

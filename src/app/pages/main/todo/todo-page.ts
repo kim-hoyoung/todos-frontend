@@ -54,6 +54,7 @@ export class TodoPage {
   }
 
   async ngOnInit() {
+    // 확인필요.
     // 투두 목록 불러오기.
     await this.todoStore.loadTodos();
 

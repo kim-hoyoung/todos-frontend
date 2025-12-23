@@ -17,7 +17,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   if (!token || isAuthRequest) {
     return next(req).pipe(
       catchError((error) => {
-        if (error.status === 401 || error.status === 403) {
+        {
           alert('로그인이 필요합니다.');
           router.navigate(['']);
         }
